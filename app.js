@@ -13,18 +13,48 @@ function eventListeners() {
     form.addEventListener('submit', addTodo);
 }
 
+// Burasi ana operasyonmerkezidir. Taptigim islemin aslinda iki yonu var. Birincisi UI tarafi digeri ise localstorage tarafidir.
 function addTodo(e) {
     let newTodo = todoInput.value.trim();
 
     if (newTodo === '') {
         alert('Please enter todo...'); 
     } else {
-        console.log('Add to UI');
+        addTodoUI(newTodo);
         console.log('Add to LocalStorage');
         alert('Add todo successfully');
     }
     e.preventDefault();
 }
+
+function addTodoUI(newTodo) {
+    
+    // Create li element
+    let listItem = document.createElement('li');
+    listItem.className = 'list-group-item d-flex justify-content-between';
+
+    // Create link 1. Method:
+    listItem.innerHTML = `
+    ${newTodo}
+    <a href = "#" class ="delete-item">
+        <i class = "fa fa-remove"></i>
+    </a>`;
+
+    // Create link 2. Method :
+   /****************************************************
+      let link = document.createElement('a');
+    link.href = '#';
+    link.className = 'delete-item';
+    link.innerHTML = ' <i class = "fa fa-remove"></i>';
+    listItem.appendChild(document.createTextNode(newTodo));
+    listItem.appendChild(link);
+   ****************************************************/
+
+    // Adding listItem to todoList
+    todoList.appendChild(listItem);
+    todoInput.value = '';
+}
+
 
 
 

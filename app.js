@@ -13,6 +13,7 @@ function eventListeners() {
     form.addEventListener('submit', addTodo);
     document.addEventListener('DOMContentLoaded', loadAllTodosToUI);
     secondCardBody.addEventListener('click', deleteTodo);
+    filter.addEventListener('keyup', filterTodos);
 }
 
 // Burasi ana operasyonmerkezidir. Taptigim islemin aslinda iki yonu var. Birincisi UI tarafi digeri ise localstorage tarafidir.
@@ -122,6 +123,19 @@ function deleteTodoFromStorage(deleteTodo){
         }
     });
     localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function filterTodos(e) {
+    let value = e.target.value.trim().toLowerCase();
+    let items = document.querySelectorAll('.list-group-item');
+    items.forEach(item =>{
+        let text = item.textContent.toLowerCase();
+        if (text.indexOf(value) === -1) {
+            item.setAttribute('style', 'display : none !important');
+        } else {
+            item.setAttribute('style', 'display : block');
+        }
+    });
 }
 
 

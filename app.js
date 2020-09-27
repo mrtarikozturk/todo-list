@@ -11,6 +11,7 @@ eventListeners();
 
 function eventListeners() {
     form.addEventListener('submit', addTodo);
+    document.addEventListener('DOMContentLoaded', loadAllTodosToUI)
 }
 
 // Burasi ana operasyonmerkezidir. Taptigim islemin aslinda iki yonu var. Birincisi UI tarafi digeri ise localstorage tarafidir.
@@ -94,6 +95,11 @@ function addTodoStorage(newTodo) {
     //     todos.push(newTodo);
     //     localStorage.setItem('todos', JSON.stringify(todos));
     // }
+}
+
+function loadAllTodosToUI() {
+    let todos = getTodosFromStorage();
+    todos.forEach(todo => addTodoUI(todo));
 }
 
 

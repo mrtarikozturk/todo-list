@@ -18,11 +18,12 @@ function addTodo(e) {
     let newTodo = todoInput.value.trim();
 
     if (newTodo === '') {
-        alert('Please enter todo...'); 
+        showAlert('danger', 'Please enter a todo...'); 
     } else {
+        addTodoStorage(newTodo);
         addTodoUI(newTodo);
         console.log('Add to LocalStorage');
-        alert('Add todo successfully');
+        showAlert('success', 'Todo successfully added.');
     }
     e.preventDefault();
 }
@@ -54,6 +55,23 @@ function addTodoUI(newTodo) {
     todoList.appendChild(listItem);
     todoInput.value = '';
 }
+
+function showAlert(type, message) {
+    // <div class="alert alert-primary" role="alert">
+    //     This is a primary alert—check it out!
+    // </div>
+
+    let alert = document.createElement('div');
+    alert.className = `alert alert-${type}`;
+    alert.setAttribute('role', 'alert');
+    alert.textContent = message;
+    firstCardBody.appendChild(alert);
+
+    window.setTimeout(function(){
+        alert.remove();
+    }, 1000);
+}
+
 
 
 

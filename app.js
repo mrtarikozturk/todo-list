@@ -72,6 +72,16 @@ function showAlert(type, message) {
     }, 1000);
 }
 
+function getTodosFromStorage() {
+    let todos;
+
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));        
+    }
+    return todos;
+}
 
 
 

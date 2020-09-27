@@ -83,6 +83,18 @@ function getTodosFromStorage() {
     return todos;
 }
 
+function addTodoStorage(newTodo) {
+    let todos = getTodosFromStorage();
+    todos.push(newTodo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+
+    // if (todos.find(item => item.lowerCase() == newTodo.lowerCase()) == undefined) {
+    //     showAlert('warning', 'This todo is already on the Your Todo List!!!');
+    // } else {
+    //     todos.push(newTodo);
+    //     localStorage.setItem('todos', JSON.stringify(todos));
+    // }
+}
 
 
 

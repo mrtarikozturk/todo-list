@@ -4,7 +4,7 @@ const todoList = document.querySelector('.list-group');
 const firstCardBody = document.querySelectorAll('.card-body')[0];
 const secondCardBody = document.querySelectorAll('.card-body')[1];
 const filter = document.querySelector('#filter');
-const clearButton = document.querySelector('#clearTodos');
+const clearButton = document.querySelector('#clear-todos');
 
 
 eventListeners();
@@ -14,9 +14,9 @@ function eventListeners() {
     document.addEventListener('DOMContentLoaded', loadAllTodosToUI);
     secondCardBody.addEventListener('click', deleteTodo);
     filter.addEventListener('keyup', filterTodos);
+    clearButton.addEventListener('click', clearAllTodos);
 }
 
-// Burasi ana operasyonmerkezidir. Taptigim islemin aslinda iki yonu var. Birincisi UI tarafi digeri ise localstorage tarafidir.
 function addTodo(e) {
     let newTodo = todoInput.value.trim();
 
@@ -25,7 +25,6 @@ function addTodo(e) {
     } else {
         addTodoStorage(newTodo);
         addTodoUI(newTodo);
-        console.log('Add to LocalStorage');
         showAlert('success', 'Todo successfully added.');
     }
     e.preventDefault();
@@ -136,6 +135,16 @@ function filterTodos(e) {
             item.setAttribute('style', 'display : block');
         }
     });
+}
+
+function clearAllTodos(e) {
+    if (confirm('Are you sure you want to delete all todos?')) {
+        while(todoList.firstElementChild != null){
+            // todoList.removeChild(todoList.firstElementChild);  // second method
+            todoList.firstElementChild.remove();
+        }
+        localStorage.removeItem('todos');
+    }
 }
 
 

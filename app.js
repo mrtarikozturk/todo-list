@@ -23,9 +23,12 @@ function addTodo(e) {
     if (newTodo === '') {
         showAlert('danger', 'Please enter a todo...'); 
     } else {
-        addTodoStorage(newTodo);
-        addTodoUI(newTodo);
-        showAlert('success', 'Todo successfully added.');
+        if (addTodoStorage(newTodo)) {
+            addTodoUI(newTodo);
+            showAlert('success', 'Todo successfully added.');
+        } else {
+            showAlert('warning', 'This todo is already on the Your Todo List!!!');            
+        }
     }
     e.preventDefault();
 }
@@ -86,15 +89,16 @@ function getTodosFromStorage() {
 
 function addTodoStorage(newTodo) {
     let todos = getTodosFromStorage();
-    todos.push(newTodo);
-    localStorage.setItem('todos', JSON.stringify(todos));
 
-    // if (todos.find(item => item.lowerCase() == newTodo.lowerCase()) == undefined) {
-    //     showAlert('warning', 'This todo is already on the Your Todo List!!!');
-    // } else {
-    //     todos.push(newTodo);
-    //     localStorage.setItem('todos', JSON.stringify(todos));
-    // }
+    if (todos.find(todo => todo.toLowerCase() == newTodo.toLowerCase()) === undefined) {
+        todos.push(newTodo);
+        localStorage.setItem('todos', JSON.stringify(todos));
+        return true;
+    } else {      
+        return false;
+    }
+    
+
 }
 
 function loadAllTodosToUI() {

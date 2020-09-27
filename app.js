@@ -11,7 +11,8 @@ eventListeners();
 
 function eventListeners() {
     form.addEventListener('submit', addTodo);
-    document.addEventListener('DOMContentLoaded', loadAllTodosToUI)
+    document.addEventListener('DOMContentLoaded', loadAllTodosToUI);
+    secondCardBody.addEventListener('click', deleteTodo);
 }
 
 // Burasi ana operasyonmerkezidir. Taptigim islemin aslinda iki yonu var. Birincisi UI tarafi digeri ise localstorage tarafidir.
@@ -102,5 +103,13 @@ function loadAllTodosToUI() {
     todos.forEach(todo => addTodoUI(todo));
 }
 
+function deleteTodo(e) {
+    if (e.target.className === 'fa fa-remove') {
+        let todo = e.target.parentElement.parentElement;
+        todo.remove();
+        deleteTodoFromStorage(todo.textContent);
+        showAlert('success', 'Todo successfully deleted...');
+    }
+}
 
 

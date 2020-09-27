@@ -112,4 +112,15 @@ function deleteTodo(e) {
     }
 }
 
+function deleteTodoFromStorage(deletedTodo) {
+    let todos = getTodosFromStorage();
+
+    todos.forEach((todo, index)=> {
+        if (todo === deletedTodo){
+            todos.splice(index, 1);
+        }
+    });
+    localStorage.setItem('todos', todos);
+}
+
 

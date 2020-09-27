@@ -37,9 +37,8 @@ function addTodoUI(newTodo) {
     listItem.className = 'list-group-item d-flex justify-content-between';
 
     // Create link 1. Method:
-    listItem.innerHTML = `
-    ${newTodo}
-    <a href = "#" class ="delete-item">
+    listItem.innerHTML = 
+    `${newTodo}<a href = "#" class ="delete-item">
         <i class = "fa fa-remove"></i>
     </a>`;
 
@@ -107,20 +106,22 @@ function deleteTodo(e) {
     if (e.target.className === 'fa fa-remove') {
         let todo = e.target.parentElement.parentElement;
         todo.remove();
-        deleteTodoFromStorage(todo.textContent);
+        deleteTodoFromStorage(todo.textContent.trim());
         showAlert('success', 'Todo successfully deleted...');
     }
 }
 
-function deleteTodoFromStorage(deletedTodo) {
+function deleteTodoFromStorage(deleteTodo){
+    
     let todos = getTodosFromStorage();
-
-    todos.forEach((todo, index)=> {
-        if (todo === deletedTodo){
-            todos.splice(index, 1);
+    console.log(todos);
+    console.log(deleteTodo);
+    todos.forEach(function(todo, index){
+        if (todo === deleteTodo) {
+            todos.splice(index,1);
         }
     });
-    localStorage.setItem('todos', todos);
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 
